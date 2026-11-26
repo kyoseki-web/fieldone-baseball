@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FIELD ONE BASEBALL SCHOOL｜ホームページ準備中</title>
+<meta name="description" content="FIELD ONE BASEBALL SCHOOL（野球教室）のホームページは、ただいま準備中です。運営：株式会社 供積">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE  : 明るく、まっすぐ。子どもと保護者に向けた、きちんとした準備中ページ。
+IDEA   : 硬式球の縫い目。画面の左右の端が、大きなボールの縫い目になっている。
+PICTURE: 中央にロゴ。左右から縫い目のカーブがのぞき、赤い糸が一目ずつ縫われていく。
+COLOUR : ロゴの紺 #0c2039 と赤 #9d1f24、白い革 #fbfaf7。
+TYPE   : Archivo（拡張幅）＋ Zen Kaku Gothic New。
+*/
+:root{color-scheme:light;--bg:#fbfaf7;--navy:#0c2039;--red:#9d1f24;--sub:#5f6672;--line:rgba(12,32,57,.14)}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--navy);font:15px/1.9 "Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;letter-spacing:.04em;-webkit-font-smoothing:antialiased}
+.page{position:relative;min-height:100svh;display:grid;grid-template-rows:1fr auto;overflow:hidden}
+.seams{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.seams .seam{fill:none;stroke:var(--line);stroke-width:2}
+.seams .stitch{stroke:var(--red);stroke-width:3;stroke-linecap:round;opacity:0;animation:sew .25s ease-out forwards}
+@keyframes sew{to{opacity:.85}}
+main{position:relative;z-index:1;align-self:center;justify-self:center;text-align:center;padding:64px 24px 40px;max-width:640px}
+@media (max-width:600px){main{padding:56px 40px 32px}.lead{font-size:15px}.sub{font-size:13px}footer{padding:18px 40px 24px}}
+.logo{width:min(78vw,480px);height:auto;margin:0 auto 40px;display:block}
+.lead{font-size:16px;margin:0 0 8px;font-weight:500}
+.sub{font-size:14px;color:var(--sub);margin:0}
+.soon{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:10px 20px;background:var(--navy);color:#fff;border-radius:999px;font:600 13px "Archivo",sans-serif;font-stretch:125%;letter-spacing:.14em}
+.soon i{width:8px;height:8px;border-radius:50%;background:#e2474d;animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+footer{position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 28px;font-size:12px;color:var(--sub);padding:18px 24px 24px;text-align:center}
+footer b{color:var(--navy);font-weight:500}
+@media (prefers-reduced-motion:reduce){.seams .stitch{animation:none;opacity:.85}.soon i{animation:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <svg class="seams" id="seams" aria-hidden="true"></svg>
+  <main>
+    <h1 style="margin:0"><img class="logo" src="logo.png" width="693" height="422" alt="FIELD ONE BASEBALL SCHOOL"></h1>
+    <p class="lead">ホームページは、ただいま準備中です。</p>
+    <p class="sub">公開まで、もう少しお待ちください。</p>
+    <span class="soon"><i></i>COMING SOON</span>
+  </main>
+  <footer>
+    <span>野球教室　FIELD ONE BASEBALL SCHOOL</span>
+    <span>運営　<b>株式会社 供積（きょうせき）</b></span>
+  </footer>
+</div>
+<script>
+{
+  // 画面の左右に、大きなボールの縫い目を描いて、ハの字の糸を一目ずつ縫う
+  const svg=document.getElementById('seams'),ns='http://www.w3.org/2000/svg';
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw(){
+    const W=innerWidth,H=Math.max(innerHeight,document.querySelector('.page').offsetHeight);
+    svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML='';
+    const sm=W<600, k2=sm?.65:1, bow=sm?W*.03:Math.min(W*.16,200), edge=sm?14:Math.min(W*.03,40);
+    const paths=[
+      `M${-edge} ${-20} C${bow} ${H*.3},${bow} ${H*.7},${-edge} ${H+20}`,
+      `M${W+edge} ${-20} C${W-bow} ${H*.3},${W-bow} ${H*.7},${W+edge} ${H+20}`];
+    paths.forEach((d,k)=>{
+      const p=document.createElementNS(ns,'path');p.setAttribute('d',d);p.setAttribute('class','seam');svg.appendChild(p);
+      const L=p.getTotalLength(),n=Math.round(L/(34*k2));
+      for(let i=1;i<n;i++){
+        const t=L*i/n,a=p.getPointAtLength(t-1),b=p.getPointAtLength(t+1),c=p.getPointAtLength(t);
+        const ang=Math.atan2(b.y-a.y,b.x-a.x),nx=-Math.sin(ang),ny=Math.cos(ang),tx=Math.cos(ang),ty=Math.sin(ang);
+        [-1,1].forEach(s=>{
+          const l=document.createElementNS(ns,'line');
+          l.setAttribute('x1',c.x+nx*4*k2*s);l.setAttribute('y1',c.y+ny*4*k2*s);
+          l.setAttribute('x2',c.x+nx*15*k2*s-tx*7*k2);l.setAttribute('y2',c.y+ny*15*k2*s-ty*7*k2);
+          l.setAttribute('class','stitch');if(!reduce)l.style.animationDelay=(.2+i*.06)+'s';
+          svg.appendChild(l);
+        });
+      }
+    });
+  }
+  draw();let r;addEventListener('resize',()=>{clearTimeout(r);r=setTimeout(draw,150)});
+}
+</script>
+</body>
+</html>
